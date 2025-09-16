@@ -12,16 +12,22 @@ Subject::Subject(const char* n)
     strcpy_s(name, strlen(n) + 1, n);
 }
 
-void Subject::Print()
+Subject::Subject(const Subject& obj)
 {
-    if (name != nullptr)
+    if (obj.name != nullptr)
     {
-        cout << "Subject: " << name << endl;
+        name = new char[strlen(obj.name) + 1];
+        strcpy_s(name, strlen(obj.name) + 1, obj.name);
     }
     else
     {
-        cout << "Subject: none" << endl;
+        name = nullptr;
     }
+}
+
+Subject::~Subject()
+{
+    delete[] name;
 }
 
 void Subject::Init(const char* n)
@@ -34,7 +40,15 @@ void Subject::Init(const char* n)
     strcpy_s(name, strlen(n) + 1, n);
 }
 
-Subject::~Subject()
+void Subject::Print()
 {
-    delete[] name;
+    if (name != nullptr)
+    {
+
+        cout << "Subject: " << name << endl;
+    }
+    else
+    {
+        cout << "Subject: none" << endl;
+    }
 }
