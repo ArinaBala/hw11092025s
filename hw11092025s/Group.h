@@ -8,16 +8,17 @@ class Group
 {
 private:
     char* name;
-
-    Student* list;       //список студентов массив через указатель чтоб можно было задавать любое количество студентов в неи 
+    Student* list;
     int countOfStudents;
 
-	Subject* subList;    //список предметов массив через указатель чтоб можно было задавать любое количество предметов
+    Subject* subList;
     int countOfSubj;
 public:
-    Group();                                                 
-    Group(const char* n, int studCount, int subjCount);      
-    void Print();                                           
-    void Init(const char* n, int studCount, int subjCount);  
-    ~Group();                                                
+    Group();                                         
+    Group(const char* n, int studCount, int subjCount); 
+    Group(const Group& obj);                         
+    ~Group();                                        
+
+    void Init(const char* n, int studCount, int subjCount);
+    void Print();
 };
