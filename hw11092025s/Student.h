@@ -6,14 +6,17 @@ class Student
 {
 private:
     char* name;
-    int* marks;   
-    int size;     
+    int* marks;
+    int size;
+
 public:
     Student();                               
-    Student(const char* n, int s);            
-    void Print();                             
-    void Init(const char* n, int s);          
-    void SetMark(int index, int value);       
-    double GetAverage();                      
-    ~Student();                               
+    Student(const char* n, int s);           
+    Student(const Student& obj);            
+    ~Student();                              
+
+    void Init(const char* n, int s);         
+    void Print();                            
+    void SetMark(int index, int value);      
+    double GetAverage();                     
 };
