@@ -13,6 +13,7 @@ Student::Student(const char* n, int s)
     size = s;
     name = new char[strlen(n) + 1];
     strcpy_s(name, strlen(n) + 1, n);
+
     marks = new int[size];
     for (int i = 0; i < size; i++)
     {
@@ -20,28 +21,38 @@ Student::Student(const char* n, int s)
     }
 }
 
-void Student::Print()
+Student::Student(const Student& obj)
 {
-    if (name != nullptr)
+    size = obj.size;
+
+    if (obj.name != nullptr)
     {
-        cout << "Student: " << name << endl;
+        name = new char[strlen(obj.name) + 1];
+        strcpy_s(name, strlen(obj.name) + 1, obj.name);
     }
     else
     {
-        cout << "Student: none" << endl;
+        name = nullptr;
     }
 
-    cout << "Marks: ";
-    if (marks != nullptr)
+    if (obj.marks != nullptr && size > 0)
     {
+        marks = new int[size];
         for (int i = 0; i < size; i++)
-            cout << marks[i] << " ";
+        {
+            marks[i] = obj.marks[i];
+        }
     }
     else
     {
-        cout << "There aren`t any marks";
+        marks = nullptr;
     }
-    cout << endl;
+}
+
+Student::~Student()
+{
+    delete[] name;
+    delete[] marks;
 }
 
 void Student::Init(const char* n, int s)
@@ -58,11 +69,34 @@ void Student::Init(const char* n, int s)
     size = s;
     name = new char[strlen(n) + 1];
     strcpy_s(name, strlen(n) + 1, n);
+
     marks = new int[size];
     for (int i = 0; i < size; i++)
     {
         marks[i] = 0;
     }
+}
+
+void Student::Print()
+{
+    if (name != nullptr)
+        cout << "Student: " << name << endl;
+    else
+        cout << "Student: none" << endl;
+
+    cout << "Marks: ";
+    if (marks != nullptr)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            cout << marks[i] << " ";
+        }
+    }
+    else
+    {
+        cout << "No marks";
+    }
+    cout << endl;
 }
 
 void Student::SetMark(int index, int value)
@@ -79,16 +113,11 @@ double Student::GetAverage()
     {
         return 0;
     }
+
     int sum = 0;
     for (int i = 0; i < size; i++)
     {
-    sum += marks[i];
+        sum += marks[i];
     }
     return sum * 1.0 / size;
-}
-
-Student::~Student()
-{
-    delete[] name;
-    delete[] marks;
 }
